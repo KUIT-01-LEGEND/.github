@@ -1,4 +1,4 @@
-## KUIT-01-LEGEND
+## modern java in action 스터디
 
 > **스터디원 : 강연주, 강지윤, 김태현, 이영선, 정소민, 함형주**
 
