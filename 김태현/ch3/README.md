@@ -85,4 +85,30 @@ Thread thread = new Thread(() -> {
           Thread.sleep(1000);
           System.out.println("End Thread");
 });
+
+```
+
+```java
+@FunctionalInterface
+public interface IAdd {
+  int add(int x, int y);
+}
+
+public class MathUtils {
+  public static int AddElement(int x, int y) {
+    return x + y;
+  }
+}
+
+public class Main {
+  public static void main(String args[]) {
+    System.out.println("Lambda Expression");
+    IAdd addLambda = (x, y) -> MathUtils.AddElement(x, y);
+    System.out.println(addLambda.add(10, 20));
+
+    System.out.println("Method Reference");
+    IAdd addMethodRef = MathUtils::AddElement;
+    System.out.println(addMethodRef.add(20, 40));
+  }
+}
 ```
