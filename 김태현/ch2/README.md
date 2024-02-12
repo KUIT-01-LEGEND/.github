@@ -28,19 +28,52 @@
 
 ## 예제 코드
 ```java
-Thread thread = new Thread(new Runnable() {
+public interface ApplePredicate { 
+    boolean test (Apple apple);
+}
+public static List<Apple> filterApples(List<Apple> inventory, ApplePredicate p) {
+    List<Apple> result = new ArrayList<>();
+    for (Apple apple : inventory) {
+        if(p.test(apple)) {
+            result.add(apple);
+        }
+    }
+    return result;
+}
+public class AppleLightWeightRedColor implements ApplePredicate {
+    public boolean test(Apple apple) {
+        return RED.equals(apple.getColor()) 
+                && apple.getWeight() < 150;
+    }
+}
 
-    @Override
-    public void run() {
-          System.out.println("Start Thread");
-          Thread.sleep(1000);
-          System.out.println("End Thread");
-   }
+List<Apple> redApples = filterApples(inventory, new ApplePredicate() {
+            public boolean test(Apple apple) {
+                return RED.equals(apple.getColor());
+        }
 });
-// 람다 표현식을 통해 가독성 업
-Thread thread = new Thread(() -> {
-          System.out.println("Start Thread");
-          Thread.sleep(1000);
-          System.out.println("End Thread");
-});
+
+List<Apple> redApples = filterApples(inventory,
+        (Apple apple) -> RED.equals(apple.getColor()));
+```
+
+```java
+public String processFile() throws IOEception {
+	try(BufferedReader br = 
+                  new BufferedReader(new FileReader("data.txt"))) {
+	   return br.readLine();	
+    }
+}
+public interface BufferedReaderProcessor {
+	String process(BufferedReader b) throws IOException;
+}
+public String processFile(BufferedReaderProcessor p) throws IOException {
+  try(BufferedReader br = 
+                  new BufferedReader(new FileReader("data.txt"))) {
+	   return p.process(br);	
+    }
+}
+String oneLine = processFile((BUfferedReader br) -> br.readLine()); 
+String twoLine = processFile((BUfferedReader br) -> br.readLine() + String oneLine = processFile((BUfferedReader br) -> br.readLine()); 
+);
 ```
