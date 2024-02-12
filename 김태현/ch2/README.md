@@ -25,3 +25,22 @@
 
 
 ### 결론: 동적 파라미터화는 자바 api의 많은 메서드에서 이용할 정도로 많은 유연성을 제공하는 방법이니 코드를 짤때 적극 활용해보도록 하며, 상황에 따라 익명 클래스 사용, 람다 표현식 사용을 적용하여 코드에 간결성 또한 적용해보자.
+
+## 예제 코드
+```java
+Thread thread = new Thread(new Runnable() {
+
+    @Override
+    public void run() {
+          System.out.println("Start Thread");
+          Thread.sleep(1000);
+          System.out.println("End Thread");
+   }
+});
+// 람다 표현식을 통해 가독성 업
+Thread thread = new Thread(() -> {
+          System.out.println("Start Thread");
+          Thread.sleep(1000);
+          System.out.println("End Thread");
+});
+```
