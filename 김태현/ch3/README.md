@@ -67,3 +67,22 @@ Predicate, Consumer, Function 등이 있다.자주 사용하니 외워두면 유
 결국 자바 8에서 등장한 람다 표현식과 메서드 참조는 코드의 가독성을 높이기 위해, 따라서 개발자들의 생산성을 높이기 위해 제작된 기능들이다.
 기존 방식에서 람다 표현식을 이용하며 혁명적인 반복적인 코드 감소 및 가독성을 증가 시킬 수 있다. 상황에 맞는 사용이 아닌 무작정 남용한다면
 오히려 코드의 가독성을 떨어 뜨릴수 있는 결과로도 이어질 수 있다고 생각함. 따라서 상황에 맞게 적절히 사용해보자.
+
+## 예제 코드
+```java
+Thread thread = new Thread(new Runnable() {
+
+    @Override
+    public void run() {
+          System.out.println("Start Thread");
+          Thread.sleep(1000);
+          System.out.println("End Thread");
+   }
+});
+// 람다 표현식을 통해 가독성 업
+Thread thread = new Thread(() -> {
+          System.out.println("Start Thread");
+          Thread.sleep(1000);
+          System.out.println("End Thread");
+});
+```
