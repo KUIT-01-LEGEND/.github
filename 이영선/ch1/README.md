@@ -125,6 +125,7 @@
 > Q. 코드 세번째 예시에서 마지막줄 `.collect(toList())` 와 `.toList()` 의 차이점은?
 >
 > 내 생각에는 `.toList()`가 맞는거 같은데 왜 책에서는 `collect()`를 사용한걸까?
+- A. `Stream.toList()` 메서드는 자바 16에 생겼다. 기존에는 `Stream.collect(toList())` 를 사용함. 책에서는 자바 8을 기준으로 설명해야 돼서 `collect()` 메서드를 사용한 것 같다.
 
 ## 1-4. 스트림
 [통화 필터 예제](https://github.com/StudyRecords/modern-java-in-action/blob/main/src/main/java/ch1/TransactionFilter.java)
