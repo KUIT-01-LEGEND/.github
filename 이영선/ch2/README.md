@@ -15,6 +15,8 @@
 
 ## 2-1. 변화하는 요구사항에 대응하기
 [사과 필터 예제](https://github.com/StudyRecords/modern-java-in-action/blob/main/src/main/java/ch2/Apples.java)
+
+
 0. 초록 사과만 필터링 하는 메서드 완성! → 갑자기 색깔과 무게 기준을 번갈아가며 필터링하라고 요구사항이 바뀜!!
    ```java
     List<Apple> filterGreenApples(List<Apple> inventory) {
@@ -126,6 +128,8 @@
    inventory.sort((Apple a1, Apple a2) -> a1.getWeight().compareTo(a2.getWeight()));
    ```
    > Q. 위의 예제코드 중 `compareTo()` 메서드에 왜 오류가 날까?
+   > 
+   > A. int 는 `compareTo()` 메서드를 사용할 수 없으므로, 해당 메서드를 가지고 있는 Integer 객체로 변환해야 한다.
 
 2. Runnable로 코드 블록 실행하기
    - 스레드를 통해 병렬적으로 실행할 때 Runnable 인터페이스를 구현하여 여러 스레드에게 각자 다른 일을 줄 수 있다.
@@ -145,7 +149,7 @@
    - ExcutorService 인터페이스
      - 태스크 제출가 실행 과정의 연관성을 끊어준다.
      - 태스크를 스레드 풀로 보내고 결과를 Future로 저장할 수 있다. (Runnable의 단점 보완)
-     - Callable 인터페이스를 이요앟여 결과를 반환하는 태스크를 만든다.
+     - Callable 인터페이스를 이용하여 결과를 반환하는 태스크를 만든다.
    
    ```java
    import java.util.concurrent.Callable;    
