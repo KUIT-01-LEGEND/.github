@@ -71,9 +71,6 @@
 ### 함수 디스크립터 (function descriptor)
 - 람다 표현식의 시그니처를 서술하는 메서드
 - 람다 표현식의 시그니처 == 함수형 인터페이스의 추상 메서드 시그니처
-> Q. 람다 표현식의 파라미터 & 리턴값을 데이터 타입으로만 표시한 것을 의미하는 건가?
-> 얘는 갑자기 왜 나온거지? 람다의 특징은 3-1에서 말하는게 더 나을거같은데??
-
 - 함수 디스크립터는 람다 표현식은 함수형 인터페이스의 추상 메서드와 같은 시그니처를 갖는다.
 
 ## 3-3. [람다 활용 : 실행 어라운드 패턴](https://github.com/StudyRecords/modern-java-in-action/blob/main/src/main/java/ch3/executeAroundPattern.java)
