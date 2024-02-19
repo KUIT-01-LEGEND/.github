@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.Predicate;
 
 import static java.util.Comparator.comparing;
 
@@ -48,6 +49,11 @@ public class ch03ex {
         @Override
         public String info(){
             return name+" 교수의 나이는 비밀이며, 전공은 "+major+" 입니다.";
+        }
+
+        @Override
+        public String toString() {
+            return info();
         }
     }
 
@@ -126,5 +132,18 @@ public class ch03ex {
         // 4. 메서드 참조
         studentList.sort(comparing(Person::getName));
         teacherList.sort(comparing(Person::getName));
+
+        /**
+         * Predicate 활용
+         */
+
+        Predicate<Person> CSEPerson = person -> person.getMajor().equals("컴퓨터공학부");
+        Predicate<Person> CSEorSW = CSEPerson.or(person -> person.getMajor().equals("소프트웨어공학과"));
+
+        List<Teacher> CSETeacher = teacherList.stream()
+                .filter(CSEPerson)
+                .toList();
+
+        System.out.println(CSETeacher);
     }
 }
