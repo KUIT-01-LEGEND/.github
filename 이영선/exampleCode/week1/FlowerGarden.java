@@ -37,7 +37,7 @@ public class FlowerGarden {
 
         // 람다 표현식으로 변경
         Arrays.sort(dates, (Date d1, Date d2)
-                -> d1.start == d2.start? d2.end-d1.end : d1.start-d2.start);
+                -> d1.start == d2.start ? d2.end - d1.end : d1.start - d2.start);
 
         // 메서드 참조를 사용하기 위해 Date 클래스에 compareTo 메서드 추가
         Arrays.sort(dates, Date::compareTo);
