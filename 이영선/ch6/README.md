@@ -1,5 +1,11 @@
-# 6장. 
+# 6장. 스트림으로 데이터 수집
 학습 목표 : 스트림의 최종 연산 중 하나인 **`collect({Collector 인터페이스})`** 사용법 알아보기
+
+→ Collectors 클래스의 정적 팩토리 메서드 종류 및 사용법
+
+→ Collector 인터페이스의 구성 및 사용법
+
+→ 커스텀 Collector 구현해보기
 
 ## 6-1. 컬렉터란 무엇인가?
 
@@ -65,35 +71,88 @@ Collector로 스트림 항목을 컬렉션으로 재구성할 수 있다!
 
 
 ## 6-3. 그룹화
-
 데이터 집합을 하나 이상의 특성으로 분류해서 그룹화하는 연산
 
-- **`groupingBy({분류 함수})`** : 분류 함수를 기준으로 스트림이 그룹화된다.
+- `**groupingBy(**{분류 함수}**)**` : 분류 함수를 기준으로 스트림이 그룹화된다.
 
-  *`Function*<T, K>` : 분류 함수
+  *`Function*<T, K>` = 분류함수 : 분류의 기준이 되는 **KEY**를 의미한다.
 
-    - 분류 함수가 반환하는 키 - 각 키에 대응하는 스트림의 모든 항목 리스트 값
+  `Collector` : 모이는 값들의 집합 / 값 (**VALUE**)
 
-  **`groupingBy(Function*<T, K>, Collector*<T, A, D>, Collector*<T, A, D>)`**
+  → 분류 함수가 반환하는 키 - 각 키에 대응하는 스트림의 모든 항목 리스트 값
 
-  **`groupingBy({분류 함수}, {컬렉터})`**
+- `**groupingBy({분류 함수}, {컬렉터})**` 의 다양한 사용법
 
-  **`groupingBy({분류 함수}, {ex. filtering, flatMapping ,, }, {ex. toSet, toList ,,})`**
+  → Map<Dish.Type, 컬렉터의 리턴값>
 
+  1. `groupingBy(Dish::getType, **filtering(프레디케이트)**, ~~toList()~~)`
+  2. `groupingBy({분류 함수 1}, **groupingBy({분류 함수 2}, {컬렉터})**)`
+
+     다수준 그룹화 : 두 가지 이상의 기준을 동시에 적용하는 기능
+
+  3. `groupingBy({분류 함수}, **counting()**)` → 데이터 수집, 리듀싱 작업
+  4. 컬렉터 팩토리 메서드 `**collectingAndThen()**` 과도 함께 사용 가능
+  5. **`mapping()`** → toSet 컬렉터로 전달된다. (중복X)
 
 ```java
 // ex. MEAT 타입 메뉴들 중 500 칼로리가 넘는 음식이 없으면 MEAT키 자체가 담기지X
 Map<Dish.Type, List<Dish>> dishes = menu.stream()
-        .filter(dish -> dish.getCalories > 500)
-        .collect(groupingBy(Dish::getType));
+							.filter(dish -> dish.getCalories > 500)
+							.collect(groupingBy(Dish::getType));
 
 // ex. MEAT 타입 메뉴들 중 500 칼로리가 넘는 음식이 없어도 `MEAT=[]`로 표시된다.
 Map<Dish.Type, List<Dish>> dishes = menu.stream()
-        .collect(groupingBy(Dish::getType), 
-                filtering(dish -> dish.getCalories() > 500,
-                toList())));
+							.collect(groupingBy(Dish::getType), 
+												filtering(dish -> dish.getCalories() > 500, 
+												toList())));
 ```
 
-다수준 그룹화 : 두 가지 이상의 기준을 동시에 적용하는 기능
 
-**`groupingBy({분류 함수 1}, groupingBy({분류 함수 2}, {컬렉터}))`**
+## 6-4. 분할
+
+
+: 특수한 종류의 그룹화
+
+결과로 반환하는 그룹화 맵은 최대 2개 (true, false) 의 그룹으로 분류된다.
+
+- **`partitioningBy({분할 함수})`** : 프레디케이트의 참/거짓으로만 분류
+
+  → Map<Boolean, List<Dish>> 리턴
+
+- **`partitioningBy({분할 함수}, {컬렉터})`**
+
+**6장 요약 : Collectors 클래스의 정적 팩토리 메서드**
+
+![](../image/ch6-4-1.png)
+![](../image/ch6-4-2.png)
+
+
+## 6-5. Collector 인터페이스
+
+컬렉터 인터페이스의 메서드
+
+- **Collector 인터페이스**는 수집(collect)에 필요한 메서드를 정의해 놓은 인터페이스
+- **Collectors 클래스**는 다양한 기능의 컬렉터(Collector 인터페이스를 구현한 클래스)를 제공
+
+1. Collector 인터페이스는 어떻게 정의되어 있는가?
+
+    ```java
+    public interface Collector<T, A, R> {
+        Supplier<A> supplier();
+        BiConsumer<A, T> accumulator();
+        BinaryOperator<A> combiner();
+        Function<A, R> finisher();
+        Set<Characteristics> characteristics();
+    }
+    ```
+    T, A, R이 각각 무엇인지 설명
+
+  - `Supplier<A> supplier()`
+  - `BiConsumer<A, T> accumulator()`
+  - `BinaryOperator<A> combiner()`
+  - `Function<A, R> finisher()`
+  - `Set<Characteristics> characteristics()`
+
+2. Collector 인터페이스는 collect() 함수에서 어떻게 사용될까?
+
+## 6-6. 커스텀 컬렉터를 구현해서 성능 개선하기
