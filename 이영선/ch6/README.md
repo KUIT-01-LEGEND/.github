@@ -73,38 +73,38 @@ Collector로 스트림 항목을 컬렉션으로 재구성할 수 있다!
 ## 6-3. 그룹화
 데이터 집합을 하나 이상의 특성으로 분류해서 그룹화하는 연산
 
-- `**groupingBy(**{분류 함수}**)**` : 분류 함수를 기준으로 스트림이 그룹화된다.
+- **`groupingBy({분류 함수})`** : 분류 함수를 기준으로 스트림이 그룹화된다.
 
-  *`Function*<T, K>` = 분류함수 : 분류의 기준이 되는 **KEY**를 의미한다.
+  `Function*<T, K>` = 분류함수 : 분류의 기준이 되는 **KEY**를 의미한다.
 
   `Collector` : 모이는 값들의 집합 / 값 (**VALUE**)
 
   → 분류 함수가 반환하는 키 - 각 키에 대응하는 스트림의 모든 항목 리스트 값
 
-- `**groupingBy({분류 함수}, {컬렉터})**` 의 다양한 사용법
+- **`groupingBy({분류 함수}, {컬렉터})`** 의 다양한 사용법
 
   → Map<Dish.Type, 컬렉터의 리턴값>
 
-  1. `groupingBy(Dish::getType, **filtering(프레디케이트)**, ~~toList()~~)`
-  2. `groupingBy({분류 함수 1}, **groupingBy({분류 함수 2}, {컬렉터})**)`
+  1. `groupingBy(Dish::getType, filtering(프레디케이트))`
+  2. `groupingBy({분류 함수 1}, groupingBy({분류 함수 2}, {컬렉터}))`
 
      다수준 그룹화 : 두 가지 이상의 기준을 동시에 적용하는 기능
 
-  3. `groupingBy({분류 함수}, **counting()**)` → 데이터 수집, 리듀싱 작업
-  4. 컬렉터 팩토리 메서드 `**collectingAndThen()**` 과도 함께 사용 가능
+  3. `groupingBy({분류 함수}, counting())` → 데이터 수집, 리듀싱 작업
+  4. 컬렉터 팩토리 메서드 **`collectingAndThen()`** 과도 함께 사용 가능
   5. **`mapping()`** → toSet 컬렉터로 전달된다. (중복X)
 
 ```java
 // ex. MEAT 타입 메뉴들 중 500 칼로리가 넘는 음식이 없으면 MEAT키 자체가 담기지X
 Map<Dish.Type, List<Dish>> dishes = menu.stream()
-							.filter(dish -> dish.getCalories > 500)
-							.collect(groupingBy(Dish::getType));
+        .filter(dish -> dish.getCalories > 500)
+        .collect(groupingBy(Dish::getType));
 
 // ex. MEAT 타입 메뉴들 중 500 칼로리가 넘는 음식이 없어도 `MEAT=[]`로 표시된다.
 Map<Dish.Type, List<Dish>> dishes = menu.stream()
-							.collect(groupingBy(Dish::getType), 
-												filtering(dish -> dish.getCalories() > 500, 
-												toList())));
+        .collect(groupingBy(Dish::getType, 
+                filtering(dish -> dish.getCalories() > 500, toList())
+        ));
 ```
 
 
