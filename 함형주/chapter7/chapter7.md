@@ -39,7 +39,7 @@ Stream.iterate(1L, i -> i + 1)
     }
     ```
     
-    ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e7c8143b-5f04-48af-a9a0-44271e9f4882/96c203e8-0293-447d-9e66-ba258739248f/Untitled.png)
+![image](https://github.com/KUIT-01-LEGEND/modern-java-in-action/assets/80512150/3cdf7bbf-878d-4982-9bc8-553a8ea2226b)
     
 - join 메서드를 태스크에 호출하면 태스크가 생산하는 결과가 준비될 때까지 호출자를 블록시킨다. 따라서 두 서브태스크가 모두 시작된 다음에 join을 호출해야 한다. 그렇지 않으면 각각의 서브태스크가 다른 태스크가 끝나길 기다리는 일이 발생하며 원래 순차 알고리즘보다 느리고 복잡한 프로그램이 되어버릴 수 있다.
 - RecursiveTask 내에서는 Fork]oinPool의 invoke 메서드를 사용하지 말아야 한다. 대신 compute나 fork 메서드를 직접 호출할 수 있다. 순차 코드에서 병렬 계산을 시작할 때만 invoke 를 사용한다.
@@ -51,5 +51,5 @@ Stream.iterate(1L, i -> i + 1)
 - 멀티코어를 활용한 병렬 프로그래밍은 항상 일정하게 실행되지 않는다. 순간적으로 디스크 접근 속도가 느려진다거나 외부 서비스와의 통신 과정에서도 지연이 발생할 수 있기 때문이다.
 - 이를 work stealing 기법으로 해결한다.
 - 병렬 프로그래밍에서 한 스레드가 다른 스레드보다 일찍 작업이 완료되었다면, 다른 스레드 큐에서 작업을 가져와 수행할 수 있다.
-  ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e7c8143b-5f04-48af-a9a0-44271e9f4882/cc5528b1-de2e-4e18-976c-fb0f30dc6a17/Untitled.png)
+![image](https://github.com/KUIT-01-LEGEND/modern-java-in-action/assets/80512150/fb7b5211-2981-4a30-ad43-3e7e642e3b5e)
   
