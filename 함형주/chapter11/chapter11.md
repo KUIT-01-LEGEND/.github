@@ -21,7 +21,7 @@
 
 ## 메서드
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e7c8143b-5f04-48af-a9a0-44271e9f4882/41e8981e-79a1-44fe-a7bc-dbe86664f303/Untitled.png)
+![image](https://github.com/KUIT-01-LEGEND/modern-java-in-action/assets/80512150/26b7dd69-f0c5-455c-9a25-8ff841907ad6)
 
 ### 팩토리 메서드
 
@@ -104,7 +104,7 @@
 
 https://www.baeldung.com/java-optional-return
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/e7c8143b-5f04-48af-a9a0-44271e9f4882/4bc19777-42fa-4fec-9257-c22bb431ae03/Untitled.png)
+![image](https://github.com/KUIT-01-LEGEND/modern-java-in-action/assets/80512150/481ea7f1-f086-470e-8101-485ad40177e8)
 
 - jpa를 사용하면 그냥 optional을 멀리하는게 좋을 지도..?
 
