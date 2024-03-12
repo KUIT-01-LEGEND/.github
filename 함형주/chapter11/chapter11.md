@@ -107,6 +107,10 @@ https://www.baeldung.com/java-optional-return
 ![image](https://github.com/KUIT-01-LEGEND/modern-java-in-action/assets/80512150/481ea7f1-f086-470e-8101-485ad40177e8)
 
 - jpa를 사용하면 그냥 optional을 멀리하는게 좋을 지도..?
+- ++ 추가로 스프링빈은 싱글톤으로 유지됨 → 상태를 가지는 필드를 가지면 안됨 → 그럼 여기도 Optional 필드를 허용하지 않는게 좋지 않을까?
+- 스프링 프로젝트에서 http 통신이나 IO 작업 외에 어디에 사용할 수 있을까
+
+---
 
 - 기본형 특화 Optional도 있지만 stream 처럼 대량 연산을 하지 않기에 성능 향상을 기대할 수 없고 심지어 다른 기본형 Optional이나 심지어 기본 Optional과도 호환되지 않기에 사용하는 의미가 없다.
 
