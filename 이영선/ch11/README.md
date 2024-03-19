@@ -1,3 +1,4 @@
+# 11장. null 대신 Optional 클래스
 ## 11-1. 값이 없는 상황을 어떻게 처리할까?
 
 null을 사용 → NullPointException이 자주 발생
